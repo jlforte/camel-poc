@@ -32,7 +32,7 @@ public class CreditScoreRequestToQueueBean {
      */
     public void onFileSendToQueue(String body) {
     	logger.info("New message pushed to the queue.");
-    	creditScoreProducer.sendBody(body);
+    	//creditScoreProducer.sendBody(body);
     	Future futureObj = creditScoreProducer.asyncRequestBody(creditScoreProducer.getDefaultEndpoint(), body);
     	try {
     		// wait for 5 secs and fetch reply asynchronously
