@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<creditform id="1">
+  <firstName>David</firstName>
+  <lastName>Suzuki</lastName>
+  <city>Toronto</city>
+  <scoreType>OMNI</scoreType>
+</creditform>

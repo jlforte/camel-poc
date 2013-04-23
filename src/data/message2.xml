@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<creditform id="2">
+  <firstName>James</firstName>
+  <lastName>Gosling</lastName>
+  <city>San Jose</city>
+  <scoreType>BUREAUOMNI</scoreType>
+</creditform>
