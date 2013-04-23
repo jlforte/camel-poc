@@ -28,7 +28,7 @@
    -->
   <!--  Queue feed and routing beans  -->
   <bean class="com.genworth.poc.camel.dsljava.CreditScoreRequestToQueueBean"/>
-  <bean class="com.genworth.poc.camel.dsljava.routes.CreditScoreRouterBean"/>
+  <bean class="com.genworth.poc.camel.dsljava.router.CreditScoreRouterBean"/>
   <bean class="com.genworth.poc.camel.dsljava.routes.OMNICreditScoreBean"/>
   <bean class="com.genworth.poc.camel.dsljava.routes.BureauCreditScoreBean"/>
   
