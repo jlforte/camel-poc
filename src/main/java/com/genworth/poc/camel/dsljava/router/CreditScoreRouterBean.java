@@ -11,6 +11,8 @@ import org.apache.log4j.Logger;
 /**
  * @author 501296262
  * Process messages from the request message queue and route to the appropriate channel.
+ * 
+ * -- This is where the routing magic happens --
  */
 public class CreditScoreRouterBean {
 	Logger logger = Logger.getLogger(CreditScoreRouterBean.class);

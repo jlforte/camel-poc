@@ -18,6 +18,8 @@ import com.genworth.poc.camel.dsljava.model.CreditScoreResponse;
  * 
  * If the Genworth credit requests are already on a message queue then we don't
  * really need this.
+ * 
+ * -- This class only executed when running via Camel container, outside of EAP --
  */
 public class CreditScoreRequestToQueueBean {
 	Logger logger = Logger.getLogger(CreditScoreRequestToQueueBean.class); 
@@ -31,8 +33,8 @@ public class CreditScoreRequestToQueueBean {
      * Process the form data added to the message queue.
      */
     public void onFileSendToQueue(String body) {
-    	logger.info("New message pushed to the queue.");
-    	//creditScoreProducer.sendBody(body);
+    	logger.info("New message pushed to the queue: " + body);
+
     	Future futureObj = creditScoreProducer.asyncRequestBody(creditScoreProducer.getDefaultEndpoint(), body);
     	try {
     		// wait for 5 secs and fetch reply asynchronously

@@ -24,8 +24,6 @@ public class BureauCreditScoreBean {
 	Logger logger = Logger.getLogger(BureauCreditScoreBean.class);
 
 	@Consume(uri = "activemq:creditscorereqs.bureauscore")
-	//@Produce(uri = "http://www.google.com?proxyHost=proxy-http.genworth.net&proxyPort=80")
-	//ProducerTemplate wsProducer;
 	
 	/*
 	 * @param String
@@ -51,7 +49,7 @@ public class BureauCreditScoreBean {
 			
 			// ** invoke web services here **
 			logger.info("Invoking Web Service at: http://www.google.com/search?proxyHost=proxy-http.genworth.net&proxyPort=80");
-			CamelContext camelContext = new DefaultCamelContext();
+			CamelContext camelContext = new DefaultCamelContext(); 
 	        ProducerTemplate template = camelContext.createProducerTemplate();
 			Exchange exchange = template.send("http://www.google.com/search?proxyHost=proxy-http.genworth.net&proxyPort=80", new Processor() {
 	            public void process(Exchange exchange) throws Exception {

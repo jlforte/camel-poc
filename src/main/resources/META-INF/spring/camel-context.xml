@@ -10,23 +10,34 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
 
-  <!-- This creates an embedded ActiveMQ Broker -->
-  <broker xmlns="http://activemq.apache.org/schema/core" useJmx="true" persistent="false">
-    <transportConnectors>
-      <transportConnector uri="tcp://localhost:61616" />
-    </transportConnectors>
-  </broker>
+
+  <!-- This creates an embedded ActiveMQ Broker - NOT REQUIRED WHEN RUNNING IN EAP -->
+  <!-- Uncomment this when running in Camel container
+  <amq:broker xmlns="http://activemq.apache.org/schema/core" useJmx="true" persistent="false">
+    <amq:transportConnectors>
+      <amq:transportConnector uri="tcp://localhost:61616" />
+    </amq:transportConnectors>
+  </amq:broker>
+  -->
 
   <!-- Lets connect the Camel ActiveMQ component to the embedded broker.
        See http://camel.apache.org/activemq.html for more information.
   -->
   <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
-    <property name="brokerURL" value="failover:tcp://localhost:61616"/>
+    <!-- <property name="brokerURL" value="tcp://localhost:61616"/> -->
+    <property name="brokerURL" value="vm://localhost"/>
+    <property name="UserName" value="admin"/>
+    <property name="password" value="password"/>
   </bean>
-  
+  <bean id="jms" name="jms" class="org.apache.activemq.camel.component.ActiveMQComponent">
+  	<!-- <property name="brokerURL" value="tcp://localhost:61616"/> --> 
+  	<property name="brokerURL" value="vm://localhost"/>
+  	<property name="UserName" value="admin"/>
+    <property name="password" value="password"/>
+  </bean>
+    
   <!-- Beans required for handling routing via Java DSL.
    -->
-  <!--  Queue feed and routing beans  -->
   <bean class="com.genworth.poc.camel.dsljava.CreditScoreRequestToQueueBean"/>
   <bean class="com.genworth.poc.camel.dsljava.router.CreditScoreRouterBean"/>
   <bean class="com.genworth.poc.camel.dsljava.routes.OMNICreditScoreBean"/>
@@ -34,17 +45,15 @@
   
   <bean class="com.genworth.poc.camel.dsljava.model.CreditScoreResponse"/>
   
-  <!-- Helpers and representations. 
-  -->
-  <!-- 
-  <bean class="com.genworth.poc.camel.dsljava.CreditScoreRequest"/>
-  -->
-   
   <!-- Define the Camel context including a pointer to where the
        route definitions reside. 
   -->
-  <camelContext xmlns="http://camel.apache.org/schema/spring">
-    <package>com.genworth.poc.camel.dsljava.router</package> 
-  </camelContext>
+  <cam:camelContext xmlns="http://camel.apache.org/schema/spring" id="creditContext">
+    <cam:package>com.genworth.poc.camel.dsljava.router</cam:package>
+    <!-- enable JMX connector so we can connect to the server and browse mbeans -->
+  	<!-- Camel will log at INFO level the service URI to use for connecting with jconsole -->
+  	<!-- <cam:jmxAgent id="agent" createConnector="true" /> -->
+  	<cam:jmxAgent id="agent" disabled="true" registerAlways="false" registerNewRoutes="false" />
+  </cam:camelContext>
 
 </beans>
