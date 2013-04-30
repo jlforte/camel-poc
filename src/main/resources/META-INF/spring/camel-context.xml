@@ -45,6 +45,26 @@
   
   <bean class="com.genworth.poc.camel.dsljava.model.CreditScoreResponse"/>
   
+  <!-- Define the Camel routes in the Camel context. This is an
+  	   alternative to defining them inside of beans. 
+  -->
+  <!-- For the poc, the routes reside in Java beans.
+  <cam:camelContext xmlns="http://camel.apache.org/schema/spring" id="creditContext">
+    <route>
+      <from uri="activemq:creditscorereqs"/>
+      <choice>
+        <when>
+          <xpath>/creditform/scoreType = 'OMNI'</xpath>
+          <to uri="activemq:creditscorereqs.omniscore"/>
+        </when>
+        <otherwise>
+          <to uri="activemq:creditscorereqs.bureauscore"/>
+        </otherwise>
+      </choice>
+    </route>
+  </cam:camelContext>
+  -->
+  
   <!-- Define the Camel context including a pointer to where the
        route definitions reside. 
   -->
